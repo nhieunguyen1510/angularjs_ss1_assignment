@@ -25,19 +25,35 @@
                 templateUrl: 'main.html'
             }).
             when('/product', {
-                templateUrl: 'product.html'
+                templateUrl: 'product.html',
+                controller: 'CtrlProduct'
             }).
             otherwise({
-                redirectTo: '/main';
+                redirectTo: '/main'
             });
         }]);
+        app.controller('CtrlProduct', function($scope, $http) {
+            $http.get('/api/products')
+                .then(function successCallback(response) {
+                        $scope.products = response.data;
+                        $scope.category = 'Phone';
+                        console.log(response.data);
+                    },
+                    function errorCallback(response) {
+
+                    })
+                .finally(function() {
+                    console.log('get product');
+                });
+        });
         app.controller('CtrlCategory', function($scope, $http) {
             $http.get('/api/categories/')
                 .then(function successCallback(response) {
-                    $scope.categories = response.data;
-                }, function errorCallback(response) {
+                        $scope.categories = response.data;
+                    },
+                    function errorCallback(response) {
 
-                })
+                    })
                 .finally(function() {
                     console.log('End AJAX');
                 });
@@ -59,7 +75,7 @@
         <div class="row">
             <!-- start header -->
             <div class="span4 logo">
-                <a href="index-2.html">
+                <a href="#main">
                     <h1>Bootstrap Cart</h1>
                 </a>
             </div>
@@ -74,7 +90,9 @@
                         <a href="#">EUR</a>
                     </div>
                     <div class="span2">
-                        <a href="cart.html"><h4>Shopping Cart (3)</h4></a>
+                        <a href="cart.html">
+                            <h4>Shopping Cart (3)</h4>
+                        </a>
                         <a href="cart.html">2 item(s) - $40.00</a>
                     </div>
                     <div class="span3 customer_service">
@@ -112,7 +130,7 @@
                             <div class="nav-collapse">
                                 <ul class="nav">
                                     <li class="dropdown">
-                                        <a href="#test" class="dropdown-toggle" data-toggle="dropdown">Desktops <b class="caret"></b></a>
+                                        <a href="#product" class="dropdown-toggle" data-toggle="dropdown">Desktops <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="listings.html">PC</a></li>
                                             <li><a href="listings.html">Mac</a></li>
@@ -123,7 +141,7 @@
                                         </ul>
                                     </li>
                                     <li ng-repeat="category in categories">
-                                        <a href="#test">{{category.name}}</a>
+                                        <a href="#product/0/{{category.name}}">{{category.name}}</a>
                                     </li>
 
                                 </ul>
@@ -163,24 +181,23 @@
                             </ul>
                         </li>
                         <li ng-repeat="category in categories">
-                            <a href="#" ng-click="selectCategory(category.name)">{{category.name}}</a>
+                            <a href="#product?category={{category.name}}" ng-click="selectCategory(category.name)">{{category.name}}</a>
                         </li>
                     </ul>
                 </div>
                 <!-- end sidebar -->
             </div>
             <div ng-view></div>
-            <script type="text/ng-template" id="test.html">
+            <script type="text/ng-template" id="main.html">
+            </script>
+            <script type="text/ng-template" id="product.html">
                 <div class="span9">
                     <ul class="breadcrumb">
                         <li>
                             <a href="#">Home</a> <span class="divider">/</span>
                         </li>
-                        <li>
-                            <a href="listings.html">Desktops</a> <span class="divider">/</span>
-                        </li>
                         <li class="active">
-                            <a href="category.html">Mac</a>
+                            <a href="#{{category}}">{{category}}</a>
                         </li>
                     </ul>
 
@@ -205,40 +222,18 @@
                             <p><a class="" href="compare.html">Add to Compare</a></p>
                         </div>
                     </div>
-                    <hr />
-                    <div class="row">
+                    <div ng-repeat="product in products" class="row">
                         <div class="span1">
-                            <a href="product.html"><img alt="" src="css/images/ipodtouch_image2_20080909.jpg"></a>
+                            <a href="product.html"><img alt="{{product.name}}" id="tmp" src="css/images/{{product.thumbnail}}"></a>
                         </div>
 
                         <div class="span6">
-                            <a href="product.html"><h5>iPod Touch</h5></a>
+                            <a href="product.html"><h5>{{product.name}}</h5></a>
                             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
                         </div>
 
                         <div class="span1">
-                            <p>$587.50</p>
-                        </div>
-
-                        <div class="span2">
-                            <p><a class="btn btn-primary" href="cart.html">Add to cart</a></p>
-                            <p><a class="" href="#">Add to Wish List</a></p>
-                            <p><a class="" href="compare.html">Add to Compare</a></p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="span1">
-                            <a href="product.html"><img alt="" src="css/images/ipodtouch_image2_20080909.jpg"></a>
-                        </div>
-
-                        <div class="span6">
-                            <a href="product.html"><h5>iPod Touch</h5></a>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                        </div>
-
-                        <div class="span1">
-                            <p>$587.50</p>
+                            <p>{{product.price|currency}}</p>
                         </div>
 
                         <div class="span2">
