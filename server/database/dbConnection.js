@@ -6,7 +6,7 @@ var dbConnection = mySql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'thuthu',
+    password: 'root',
     database: 'a1node'
 });
 
