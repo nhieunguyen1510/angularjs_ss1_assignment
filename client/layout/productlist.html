@@ -10,11 +10,11 @@
 
     <div ng-repeat="product in products" class="row">
         <div class="span1">
-            <a href="product.html/{{product.id}}"><img alt="{{product.name}}" src="css/images/{{product.thumbnail}}"></a>
+            <a href="product.html?id={{product.id}}"><img alt="{{product.name}}" src="css/images/{{product.thumbnail}}"></a>
         </div>
 
         <div class="span6">
-            <a href="product.html/{{product.id}}"><h5>{{product.name}}</h5></a>
+            <a href="product.html?id={{product.id}}"><h5>{{product.name}}</h5></a>
             <p>{{product.description}}</p>
         </div>
 

@@ -37,18 +37,34 @@
             if (urlvars.category) {
                 $scope.category = urlvars.category;
             }
-            $http.get('/api/products?category=' + urlvars.category)
-                .then(function successCallback(response) {
-                        $scope.products = response.data;
-                        console.log(response.data);
-                    },
-                    function errorCallback(response) {
+            if (urlvars.category) {
+                $http.get('/api/products?category=' + urlvars.category)
+                    .then(function successCallback(response) {
+                            $scope.products = response.data;
+                            console.log(response.data);
+                        },
+                        function errorCallback(response) {
 
-                    })
-                .finally(function() {
-                    console.log('get product');
-                    console.log(helper.getUrlVars());
-                });
+                        })
+                    .finally(function() {
+                        console.log('get product');
+                        console.log(helper.getUrlVars());
+                    });
+            }
+            if (urlvars.id) {
+                $http.get('/api/products/' + urlvars.id)
+                    .then(function successCallback(response) {
+                            if (response.data) {
+                                $scope.productdetail = response.data[0];
+                            }
+                        },
+                        function errorCallback(response) {
+
+                        })
+                    .finally(function() {
+                        console.log('get product detail');
+                    });
+            }
         });
         app.controller('CtrlCategory', function($scope, $http) {
             $http.get('/api/categories/')
