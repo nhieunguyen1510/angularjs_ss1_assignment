@@ -72,48 +72,7 @@
 <body>
 
     <div ng-app="myApp" class="container">
-        <div class="row">
-            <!-- start header -->
-            <div class="span4 logo">
-                <a href="#main">
-                    <h1>Bootstrap Cart</h1>
-                </a>
-            </div>
-            <div class="span8">
-
-                <div class="row">
-                    <div class="span1">&nbsp;</div>
-                    <div class="span2">
-                        <h4>Currency</h4>
-                        <a href="#">USD</a> |
-                        <a href="#"><strong>GBP</strong></a> |
-                        <a href="#">EUR</a>
-                    </div>
-                    <div class="span2">
-                        <a href="cart.html">
-                            <h4>Shopping Cart (3)</h4>
-                        </a>
-                        <a href="cart.html">2 item(s) - $40.00</a>
-                    </div>
-                    <div class="span3 customer_service">
-                        <h4>FREE delivery on ALL orders</h4>
-                        <h4><small>Customer service: 0800 8475 548</small></h4>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="links pull-right">
-                        <a href="index-2.html">Home</a> |
-                        <a href="my_account.html">My Account</a> |
-                        <a href="cart.html">Shopping Cart</a> |
-                        <a href="two-column.html">About</a> |
-                        <a href="contact.html">Contact</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- end header -->
+        <div ng-include="'/layout/header.html'"></div>
 
         <div class="row" ng-controller="CtrlCategory">
             <!-- start nav -->
@@ -302,47 +261,48 @@
                         <li><a href="typography.html">Newsletter</a></li>
                     </ul>
                 </div>
+            </div>
 
         </footer>
 
+    </div>
+    <!-- /container -->
+
+
+    <div id="theme_switcher">
+        <div class="btn-group">
+            <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">Switch theme <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#" rel="united">United</a></li>
+                <li><a href="#" rel="spacelab">Spacelab</a></li>
+                <li><a href="#" rel="journal">Journal</a></li>
+                <li><a href="#" rel="simplex">Simplex</a></li>
+                <li><a href="#" rel="cerulean">Cerulean</a></li>
+                <li><a href="#" rel="cyborg">Cyborg</a></li>
+                <li><a href="#" rel="slate">Slate</a></li>
+                <li><a href="#" rel="spruce">Spruce</a></li>
+                <li><a href="#" rel="">Bootstrap</a></li>
+            </ul>
         </div>
-        <!-- /container -->
+    </div>
 
 
-        <div id="theme_switcher">
-            <div class="btn-group">
-                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">Switch theme <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#" rel="united">United</a></li>
-                    <li><a href="#" rel="spacelab">Spacelab</a></li>
-                    <li><a href="#" rel="journal">Journal</a></li>
-                    <li><a href="#" rel="simplex">Simplex</a></li>
-                    <li><a href="#" rel="cerulean">Cerulean</a></li>
-                    <li><a href="#" rel="cyborg">Cyborg</a></li>
-                    <li><a href="#" rel="slate">Slate</a></li>
-                    <li><a href="#" rel="spruce">Spruce</a></li>
-                    <li><a href="#" rel="">Bootstrap</a></li>
-                </ul>
-            </div>
-        </div>
-
-
-        <!-- Le javascript
+    <!-- Le javascript
 ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="js/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.js"></script>
-        <script src="js/jquery.rating.pack.js"></script>
-        <script>
-            $(function() {
-                $('#theme_switcher ul li a').bind('click',
-                    function(e) {
-                        $("#switch_style").attr("href", "http://bootswatch.com/" + $(this).attr('rel') + "/bootstrap.min.css");
-                        return false;
-                    }
-                );
-            });
-        </script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/jquery.rating.pack.js"></script>
+    <script>
+        $(function() {
+            $('#theme_switcher ul li a').bind('click',
+                function(e) {
+                    $("#switch_style").attr("href", "http://bootswatch.com/" + $(this).attr('rel') + "/bootstrap.min.css");
+                    return false;
+                }
+            );
+        });
+    </script>
 
 </body>
 

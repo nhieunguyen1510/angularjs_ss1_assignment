@@ -1,0 +1,17 @@
+<div class="span3" ng-controller="CtrlCategory">
+
+    <!-- start sidebar -->
+    <ul class="breadcrumb">
+        <li><span>Categories</span>
+        </li>
+    </ul>
+    <div class="span3 product_list">
+        <ul class="nav">
+            <li ng-repeat="category in categories">
+                <a href="listings.html?category={{category.name}}" ng-click="selectCategory(category.name)">{{category.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <!-- end sidebar -->
+
+</div>
