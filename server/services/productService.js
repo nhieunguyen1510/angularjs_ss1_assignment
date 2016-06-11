@@ -41,7 +41,7 @@ ProductService.getProduct = function getProduct(id) {
     var deferred = Q.defer();
 
     dbConnection.query(
-        "SELECT id, name, thumbnail, price, description FROM product where id = ?", id,
+        "SELECT p.id, p.name, p.description, p.thumbnail, p.price, c.name as category FROM product p INNER JOIN category c ON p.category_id = c.id WHERE p.id=?", id,
         function(err, result) {
             if (err) {
                 deferred.reject(err);

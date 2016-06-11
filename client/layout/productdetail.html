@@ -1,10 +1,13 @@
 <div class="span9" ng-controller="CtrlProduct">
     <ul class="breadcrumb">
         <li>
-            <a href="#">Home</a> <span class="divider">/</span>
+            <a href="index.html">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="listings.html?category={{productdetail.category}}">{{productdetail.category}}</a> <span class="divider">/</span>
         </li>
         <li class="active">
-            <a href="#{{category}}">{{category}}</a>
+            <a href="product?id={{productdetail.id}}">{{productdetail.name}}</a>
         </li>
     </ul>
 
@@ -20,28 +23,6 @@
         <div class="span3">
             <img alt="" src="css/images/{{productdetail.thumbnail}}" />
 
-
-            <ul class="thumbnails">
-
-                <li class="span1">
-                    <a href="#" class="thumbnail">
-                        <img src="css/images/1_50.jpg" alt="">
-                    </a>
-                </li>
-
-                <li class="span1">
-                    <a href="#" class="thumbnail">
-                        <img src="css/images/2_50.jpg" alt="">
-                    </a>
-                </li>
-
-                <li class="span1">
-                    <a href="#" class="thumbnail">
-                        <img src="css/images/3_50.jpg" alt="">
-                    </a>
-                </li>
-
-            </ul>
 
         </div>
 
@@ -79,18 +60,6 @@
                 </form>
             </div>
 
-            <div class="span6">
-
-                <p>
-                    <input name="star1" type="radio" class="star" />
-                    <input name="star1" type="radio" class="star" />
-                    <input name="star1" type="radio" class="star" />
-                    <input name="star1" type="radio" class="star" />
-                    <input name="star1" type="radio" class="star" />&nbsp;&nbsp;
-
-                    <a href="#">0 reviews</a> | <a href="#">Write a review</a></p>
-            </div>
-
 
         </div>
 
@@ -103,7 +72,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#1" data-toggle="tab">Description</a></li>
                     <li><a href="#2" data-toggle="tab">Reviews</a></li>
-                    <li><a href="#3" data-toggle="tab">Related products</a></li>
+                    <li><a href="#4" data-toggle="tab">Write a review</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="1">
@@ -112,53 +81,80 @@
                         </p>
                     </div>
                     <div class="tab-pane" id="2">
-                        <p>There are no reviews for this product.</p>
+                        <p ng-if="productreviews.length==0">There are no reviews for this product.</p>
+                        <div ng-repeat="review in productreviews">
+                            <div class="row">
+                                <div class="span2">
+                                    <div class="span1">
+                                        <img alt="" src="css/images/avatar.png" />
+                                        <center>{{review.author}}</center>
+                                    </div>
+                                </div>
+                                <div class="span5">
+                                    <span class="star-rating-control">
+                                        <div ng-if="review.stars>=1" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-hover">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars<1" class="star-rating rater-0 star star-rating-applied star-rating-live">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars>=2" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-hover">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars<2" class="star-rating rater-0 star star-rating-applied star-rating-live">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars>=3" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-hover">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars<3" class="star-rating rater-0 star star-rating-applied star-rating-live">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars>=4" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-hover">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars<4" class="star-rating rater-0 star star-rating-applied star-rating-live">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars>=5" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-hover">
+                                            <a title="on">on</a>
+                                        </div>
+                                        <div ng-if="review.stars<5" class="star-rating rater-0 star star-rating-applied star-rating-live">
+                                            <a title="on">on</a>
+                                        </div>
+                                    </span>
+                                    <br>
+                                    <br>
+                                </div>
+                                <div class="span5">
+                                    <p>{{review.comment}}</p>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
                     </div>
-                    <div class="tab-pane" id="3">
-                        <ul class="thumbnails related_products">
-
-                            <li class="span2">
-                                <div class="thumbnail">
-                                    <a href="product.html"><img alt="" src="http://placehold.it/220x180" /></a>
-                                    <div class="caption">
-                                        <a href="product.html">
-                                            <h5>iPod Touch</h5></a> Price: &#36;50.00<br /><br />
-                                    </div>
+                    <div class="tab-pane" id="4">
+                        <form class="form no_margin_left span9 ng-pristine ng-valid" ng-submit="addReview()">
+                            <div class="form-group">
+                                <label>Rating:</label>
+                                <div>
+                                    <input value="1" ng-model="review.stars" type="radio" class="star" />
+                                    <input value="2" ng-model="review.stars" type="radio" class="star" />
+                                    <input value="3" ng-model="review.stars" type="radio" class="star" />
+                                    <input value="4" ng-model="review.stars" type="radio" class="star" />
+                                    <input value="5" ng-model="review.stars" type="radio" class="star" />&nbsp;&nbsp;
                                 </div>
-                            </li>
-
-                            <li class="span2">
-                                <div class="thumbnail">
-                                    <a href="product.html"><img alt="" src="http://placehold.it/220x180" /></a>
-                                    <div class="caption">
-                                        <a href="product.html">
-                                            <h5>iPod Touch</h5></a> Price: &#36;50.00<br /><br />
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="span2">
-                                <div class="thumbnail">
-                                    <a href="product.html"><img alt="" src="http://placehold.it/220x180" /></a>
-                                    <div class="caption">
-                                        <a href="product.html">
-                                            <h5>iPod Touch</h5></a> Price: &#36;50.00<br /><br />
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="span2">
-                                <div class="thumbnail">
-                                    <a href="product.html"><img alt="" src="http://placehold.it/220x180" /></a>
-                                    <div class="caption">
-                                        <a href="product.html">
-                                            <h5>iPod Touch</h5></a> Price: &#36;50.00<br /><br />
-                                    </div>
-                                </div>
-                            </li>
-
-
-                        </ul>
+                            </div>
+                            <div class="form-group">
+                                <label for="author">Your Name:</label>
+                                <input ng-model="review.author" class="span9" name="author" id="author" placeholder="Write your name here... "></input>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Your Comment:</label>
+                                <textarea ng-model="review.comment" class="span9" name="comment" id="comment" placeholder="Write your comment here... "></textarea>
+                            </div>
+                            <button class="btn btn-primary pull-right" type="submit">Post</button>
+                        </form>
                     </div>
                 </div>
             </div>
